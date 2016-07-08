@@ -1,3 +1,4 @@
+import pytest
 import hypothesis as h
 from hypothesis import strategies as st
 from functools import reduce
@@ -55,3 +56,22 @@ def test_no_subsets(sets):
             if e_ix == s_ix:
                 continue
             assert not e.issubset(s), "subset found in {}".format(output)
+
+
+@h.given(st.lists(st.sets(st.integers(min_value=-1, max_value=5), max_size=3), max_size=8))
+def test_no_sibling_superset_cover_a_set_in_output(sets):
+    union = lambda a, b: a.union(b)
+    without = lambda o, i: o[:i] + o[i + 1:]
+    output = reduce_sets(sets)
+    for i, e in enumerate(output):
+        siblings_superset = reduce(union, without(output, i), set())
+        assert not siblings_superset.issuperset(e)
+
+
+@pytest.mark.skip(reason="exploring property this one highlighted")
+def test_hard_coverage():
+    s = [
+        {1,   2}, {3,   4},
+        {1}, {2,   3}, {4}
+    ]
+    assert reduce_sets(s) == [{1, 2}, {3, 4}]
