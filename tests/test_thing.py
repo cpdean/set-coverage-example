@@ -58,6 +58,7 @@ def test_no_subsets(sets):
 
 
 @h.given(st.lists(st.sets(st.integers(min_value=-1, max_value=5), max_size=3), max_size=8))
+@h.settings(max_examples=2000)
 def test_no_sibling_superset_cover_a_set_in_output(sets):
     union = lambda a, b: a.union(b)
     without = lambda o, i: o[:i] + o[i + 1:]
