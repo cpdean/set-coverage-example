@@ -1,3 +1,4 @@
 
 def reduce_sets(sets):
-    return [{1, 2}]
+    # remove first and last item
+    return sets[1:][:-1]
