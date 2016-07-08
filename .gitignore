@@ -2,3 +2,4 @@
 .tox/
 setcoverage.egg-info/
 *.pyc
+.hypothesis/
