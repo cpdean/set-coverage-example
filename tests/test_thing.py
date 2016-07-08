@@ -1,4 +1,3 @@
-import pytest
 import hypothesis as h
 from hypothesis import strategies as st
 from functools import reduce
@@ -68,7 +67,6 @@ def test_no_sibling_superset_cover_a_set_in_output(sets):
         assert not siblings_superset.issuperset(e)
 
 
-@pytest.mark.skip(reason="exploring property this one highlighted")
 def test_hard_coverage():
     s = [
         {1,   2}, {3,   4},
