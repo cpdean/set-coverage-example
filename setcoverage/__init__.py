@@ -11,13 +11,13 @@ def _prune_one(sets):
     """ attempt to remove a single item """
     for i, e in enumerate(sets):
         for s in _without(sets, i):
-            if s == e:
+            if s.issuperset(e):  # changed from 's == e'
                 return _without(sets, i)
     return sets
 
 
 def reduce_sets(sets):
-    o = sets
+    o = [s for s in sets if s != set([])]
     for n in range(len(sets)):
         o = _prune_one(o)
     return o

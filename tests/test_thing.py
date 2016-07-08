@@ -39,3 +39,19 @@ def test_no_duplicate_sets(sets):
             if e_ix == s_ix:
                 continue
             assert e != s, "duplicate in {}".format(output)
+
+
+@h.given(st.lists(st.sets(st.integers())))
+def test_no_empty_sets(sets):
+    output = reduce_sets(sets)
+    assert set([]) not in output
+
+
+@h.given(st.lists(st.sets(st.integers())))
+def test_no_subsets(sets):
+    output = reduce_sets(sets)
+    for e_ix, e in enumerate(output):
+        for s_ix, s in enumerate(output):
+            if e_ix == s_ix:
+                continue
+            assert not e.issubset(s), "subset found in {}".format(output)
