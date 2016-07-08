@@ -17,6 +17,7 @@ def _prune_one(sets):
 
 
 def reduce_sets(sets):
-    one_removed = _prune_one(sets)
-    two_removed = _prune_one(one_removed)
-    return two_removed
+    o = sets
+    for n in range(len(sets)):
+        o = _prune_one(o)
+    return o
