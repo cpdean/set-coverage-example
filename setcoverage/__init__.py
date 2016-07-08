@@ -11,7 +11,7 @@ def _prune_one(sets):
     """ attempt to remove a single item """
     for i, e in enumerate(sets):
         for s in _without(sets, i):
-            if s.issuperset(e):
+            if s == e:
                 return _without(sets, i)
     return sets
 
