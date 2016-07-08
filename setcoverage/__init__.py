@@ -1,4 +1,9 @@
 
 def reduce_sets(sets):
-    # remove first and last item
-    return sets[1:][:-1]
+    if sets == []:
+        return sets
+    # create a set of the items found
+    o = set()
+    for s in sets:
+        o = o.union(s)
+    return [o]
