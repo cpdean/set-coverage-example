@@ -22,3 +22,20 @@ def test_no_items_lost(sets):
     all_input = reduce(union, sets, set())
     all_output = reduce(union, reduce_sets(sets), set())
     assert all_input == all_output
+
+
+@h.given(st.lists(st.sets(st.integers())))
+def test_all_sets_come_from_input(sets):
+    output = reduce_sets(sets)
+    forbidden_sets = [s for s in output if s not in sets]
+    assert len(forbidden_sets) == 0
+
+
+@h.given(st.lists(st.sets(st.integers())))
+def test_no_duplicate_sets(sets):
+    output = reduce_sets(sets)
+    for e_ix, e in enumerate(output):
+        for s_ix, s in enumerate(output):
+            if e_ix == s_ix:
+                continue
+            assert e != s, "duplicate in {}".format(output)
